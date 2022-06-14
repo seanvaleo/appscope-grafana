@@ -1,0 +1,24 @@
+inputs:
+  in_appscope:
+    disabled: false
+    sendToRoutes: false
+    pqEnabled: false
+    streamtags: []
+    ipWhitelistRegex: /.*/
+    maxActiveCxn: 1000
+    enableProxyHeader: false
+    staleChannelFlushMs: 10000
+    enableUnixPath: true
+    authType: manual
+    unixSocketPath: /var/run/appscope/appscope.sock
+    authToken: ""
+    tags: []
+    tls:
+      disabled: true
+    host: 0.0.0.0
+    port: 10090
+    unixSocketPerms: "777"
+    type: appscope
+    connections:
+      - pipeline: passthru
+        output: influx01

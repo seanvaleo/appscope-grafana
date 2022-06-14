@@ -1,0 +1,13 @@
+api:
+  retryCount: 120
+  retrySleepSecs: 5
+  baseUrl: ""
+  disabled: false
+  revokeOnRoleChange: true
+  authTokenTTL: 3600
+  headers: {}
+  ssl:
+    disabled: true
+  host: 0.0.0.0
+  port: 9420
+  loginRateLimit: 2/second

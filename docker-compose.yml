@@ -1,0 +1,62 @@
+version: '3'
+
+services:
+  appscope:
+    container_name: appscope01
+    image: cribl/scope:latest
+    tty: true
+    volumes:
+      - /var/run/appscope:/var/run/appscope        # Default Unix Domain Socket
+    networks:
+      - ag
+
+  grafana:
+    container_name: grafana01
+    image: grafana/grafana
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=scopedemo       # Bypass Auth setup
+    ports:
+      - "3000:3000"
+    networks:
+      - ag
+    volumes:
+      - ./grafana:/etc/grafana/provisioning        # Config dir
+
+  influxdb:
+    container_name: influx01
+    image: influxdb
+    environment:
+      - DOCKER_INFLUXDB_INIT_MODE=setup
+      - DOCKER_INFLUXDB_INIT_USERNAME=scope
+      - DOCKER_INFLUXDB_INIT_PASSWORD=scopedemo
+      - DOCKER_INFLUXDB_INIT_ORG=scope
+      - DOCKER_INFLUXDB_INIT_BUCKET=default
+      - DOCKER_INFLUXDB_INIT_RETENTION=1w
+      - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=5up3r-S3cr3t-auth-t0k3n
+    ports:
+      - "8086:8086"
+    networks:
+      - ag
+
+  edge:  
+    container_name: edge01
+    image: cribl/cribl:latest
+    privileged: true
+    environment:
+      - CRIBL_EDGE=1
+    ports:
+      - "9420:9420"                                # Edge UI Port
+      - "10090:10090"                              # AppScope TCP Port
+    volumes:
+      - ./edge/local:/opt/cribl/local              # Config dir
+      - /var/run/docker.sock:/var/run/docker.sock  # Get Container stats
+      - /var/run/appscope:/var/run/appscope        # Appscope Unix Domain Socket
+      - /:/hostfs:ro                               # Get Host stats
+    networks:
+      - ag
+
+
+networks:
+  ag:
+    driver: bridge
+
