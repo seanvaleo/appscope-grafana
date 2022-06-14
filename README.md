@@ -13,6 +13,8 @@ AppScope -> Cribl Edge -> InfluxDB <- Grafana
 
 ### Usage
 
+#### Starting Services
+
 Start:
 ```
 docker-compose up -d
@@ -23,7 +25,7 @@ Stop:
 docker-compose down
 ```
 
-### Using AppScope
+#### Using AppScope
 
 Run AppScope from the host, if installed:
 ```
@@ -36,3 +38,8 @@ docker ps # Find AppScope container ID
 docker exec -it <container_id> /bin/bash
 scope run -c edge -- <some_command>
 ```
+
+#### Grafana Dashboards
+
+- Point your browser to localhost:3000
+- Log in with user `admin` password `scopedemo`
