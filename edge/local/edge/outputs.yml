@@ -20,7 +20,7 @@ outputs:
     onBackpressure: block
     authType: token
     type: influxdb
-    url: http://influx01:8086/v2/write
+    url: http://influx01:8086/api/v2/write
     bucket: default
     org: scope
     token: "#42:se0+aKRjguNB6UysSFLYf8Ss3A380F046BeyU7PrSEVODX5ioFgVZeIBDekRNCpr"

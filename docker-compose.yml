@@ -12,15 +12,15 @@ services:
 
   grafana:
     container_name: grafana01
-    image: grafana/grafana
+    build:
+      context: grafana
     environment:
+      - GF_DASHBOARDS_DEFAULT_HOME_DASHBOARD_PATH=/var/lib/grafana/dashboards/appscope.json
       - GF_SECURITY_ADMIN_PASSWORD=scopedemo       # Bypass Auth setup
     ports:
       - "3000:3000"
     networks:
       - ag
-    volumes:
-      - ./grafana:/etc/grafana/provisioning        # Config dir
 
   influxdb:
     container_name: influx01
